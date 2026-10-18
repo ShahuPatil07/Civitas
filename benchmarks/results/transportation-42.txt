@@ -1,0 +1,127 @@
+transportation | solver=baseline | seed=42
+000 ACCEPT observe {"target":"nearby"}
+    event a72a6fe1-688d-5e52-ad82-e47c3dc40de7 | 2 state changes | 3b06b6f481d1
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"observed":["cf8ecac7-cc6a-521d-a285-39766229d791","dc252a25-9fbc-5944-97f2-b4f7b7471583"]}
+001 ACCEPT shape {"length":2,"mass":1,"material":"ca0859c2-2354-50ca-a3c1-95b77e386273","radius":0.25}
+    event 61db4ae6-330f-5689-83c0-0b86bf901591 | 3 state changes | 7c538c442938
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","energy_J":5.0}
+002 ACCEPT shape {"length":2,"mass":1,"material":"55dcc2f6-bdf2-5911-b338-6f680684a390","radius":0.25}
+    event 532c0cb3-f61d-5d3d-b079-09e3b815dc87 | 3 state changes | 33096d157e4b
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","energy_J":300.0}
+003 ACCEPT connect {"a":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"rotation"}
+    event 53d6bfcc-4e7d-53d0-b027-56edc670abe0 | 3 state changes | 26eedd80685a
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"b0170aee-d63a-5dc9-9e19-1203472596dc"}
+004 ACCEPT connect {"a":"cf8ecac7-cc6a-521d-a285-39766229d791","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"contain"}
+    event f33eb93b-f481-56c4-98dd-ce2211a54c84 | 3 state changes | 8ca5e822fa21
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"d7d8d188-24aa-58c2-86e1-7643d0c711aa"}
+005 ACCEPT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","kind":"rotation"}
+    event dbf4a577-1289-5dff-8a06-daed15677ab0 | 3 state changes | 6ad86afcfb45
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"54e91d65-ec24-5256-8630-45862c0ec0d4"}
+006 REJECT connect {"a":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","b":"cf8ecac7-cc6a-521d-a285-39766229d791","kind":"contain"}
+    event 9942b7ea-653c-5fbd-afe2-20603492dc20 | 0 state changes | 6ad86afcfb45
+    unsatisfied: unsupported_connection: Nested load-bearing relations are not modeled
+007 ACCEPT connect {"a":"cf8ecac7-cc6a-521d-a285-39766229d791","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"rotation"}
+    event 7b0316e8-7435-5f89-a786-83d837ac6a74 | 3 state changes | a32dd87ee715
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"2e5a8c7a-995b-5daa-bd36-d83d6849a29b"}
+008 REJECT connect {"a":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","b":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","kind":"support"}
+    event 1ffc8164-3815-5c5e-b968-aced45aa938a | 0 state changes | a32dd87ee715
+    unsatisfied: unsupported_connection: Properties do not expose the requested affordance
+009 ACCEPT connect {"a":"cf8ecac7-cc6a-521d-a285-39766229d791","b":"dc252a25-9fbc-5944-97f2-b4f7b7471583","kind":"force"}
+    event bbc79470-7517-50f2-90f0-e930a3d86239 | 3 state changes | b0406421a60a
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"f9ecf0b3-d8de-54d6-a9c2-115a94d20393"}
+010 REJECT connect {"a":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","b":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","kind":"contain"}
+    event bd06046c-1325-5f6c-9500-b50163b99e69 | 0 state changes | b0406421a60a
+    unsatisfied: unsupported_connection: Properties do not expose the requested affordance
+011 ACCEPT connect {"a":"cf8ecac7-cc6a-521d-a285-39766229d791","b":"dc252a25-9fbc-5944-97f2-b4f7b7471583","kind":"contain"}
+    event e0db2bb8-1492-50ef-8e4b-19d096abd979 | 3 state changes | 909ed1d3d47b
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"989cfa0f-692b-5cbf-b5b2-5bb9b251634c"}
+012 REJECT connect {"a":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"contain"}
+    event f62e9b46-c0a5-57a5-8f28-57f6b635ade7 | 0 state changes | 909ed1d3d47b
+    unsatisfied: unsupported_connection: v0 permits one support or container per load
+013 REJECT connect {"a":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","b":"dc252a25-9fbc-5944-97f2-b4f7b7471583","kind":"contain"}
+    event 9077030b-4200-5368-9333-ee497e1d2061 | 0 state changes | 909ed1d3d47b
+    unsatisfied: unsupported_connection: Properties do not expose the requested affordance
+014 ACCEPT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","kind":"force"}
+    event 341d141e-77bd-5662-b280-1b4b896b8238 | 3 state changes | 8941ef8fa019
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"6833700c-fc86-5ac2-ae30-2585a2d5fbc7"}
+015 ACCEPT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"rotation"}
+    event a780918e-80de-56d1-a311-25fde811b741 | 3 state changes | 59ede15b72d3
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"f7229552-834c-51f1-95f1-5c1615050023"}
+016 ACCEPT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"cf8ecac7-cc6a-521d-a285-39766229d791","kind":"rotation"}
+    event 02b406b1-21c0-5dcb-921e-ae7969ecf57a | 3 state changes | f51bdfd217de
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"1330383f-634b-5eaa-8590-4be875628ae7"}
+017 REJECT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"cf8ecac7-cc6a-521d-a285-39766229d791","kind":"contain"}
+    event 3410a902-9f43-5c04-8c21-3366155ce804 | 0 state changes | f51bdfd217de
+    unsatisfied: duplicate_connection: This relation already exists
+018 ACCEPT connect {"a":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","b":"dc252a25-9fbc-5944-97f2-b4f7b7471583","kind":"force"}
+    event b6051ef0-c86e-5665-8174-12764a51b8ec | 3 state changes | 7b4d8e7107ad
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"created":"33d5fa3e-7a05-5816-869a-ef4c36b23330"}
+019 REJECT connect {"a":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","b":"dc252a25-9fbc-5944-97f2-b4f7b7471583","kind":"force"}
+    event 5ed11051-00c0-593f-8fd4-f98cc4dde397 | 0 state changes | 7b4d8e7107ad
+    unsatisfied: duplicate_connection: This relation already exists
+020 REJECT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"cf8ecac7-cc6a-521d-a285-39766229d791","kind":"force"}
+    event c95a2b58-3f7e-5a1e-8bd3-46bca22f34ee | 0 state changes | 7b4d8e7107ad
+    unsatisfied: duplicate_connection: This relation already exists
+021 REJECT connect {"a":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","b":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c","kind":"support"}
+    event 7a90a84d-8704-5241-8025-5d9c96848098 | 0 state changes | 7b4d8e7107ad
+    unsatisfied: unsupported_connection: v0 permits one support or container per load
+022 REJECT connect {"a":"dc252a25-9fbc-5944-97f2-b4f7b7471583","b":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5","kind":"support"}
+    event c4f4ece5-d38f-51d8-afb4-1bd44f29e182 | 0 state changes | 7b4d8e7107ad
+    unsatisfied: unsupported_connection: Nested load-bearing relations are not modeled
+023 ACCEPT work {"duration":10,"dx":1.0,"dz":0.0,"mode":"force","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","e3b49b3f-892e-55a6-9727-3dccbbccaf0c"]}
+    event 0bac433b-18f8-5056-82c4-3c20ccc1df2d | 9 state changes | 2a7586dd3ecd
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"efficiency":0.9,"motion":{"from":[0,0],"input_J":5.45,"mode":"force","output_J":4.905,"to":[1.0,0.0]},"target":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c"}
+024 ACCEPT move {"duration":10,"dx":1.0,"dz":0.0,"target":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5"}
+    event 0cc5e5c5-9a39-59a3-ba79-7ab8d0e9f7cb | 6 state changes | 14171b3698aa
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"efficiency":1.0,"motion":{"from":[0,0],"input_J":4.905,"mode":"human","output_J":4.905,"to":[1.0,0.0]},"target":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5"}
+025 REJECT move {"duration":10,"dx":5,"dz":0,"target":"cf8ecac7-cc6a-521d-a285-39766229d791"}
+    event 8fa7723c-f6a3-5e6b-ab1c-a601cf6e1b54 | 0 state changes | 14171b3698aa
+    unsatisfied: unsupported_motion: Movement of loaded supports/containers is not modeled
+026 ACCEPT work {"duration":10,"dx":1.0,"dz":0.0,"mode":"rotation","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","b58a470d-0802-53a5-8ccc-25f2aa19ecf5"]}
+    event 14419353-3c48-5b87-9faa-17fe3c7bda95 | 7 state changes | 59d1f2ed21bd
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"efficiency":0.9,"motion":{"from":[1.0,0.0],"input_J":5.45,"mode":"rotation","output_J":4.905,"to":[2.0,0.0]},"target":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5"}
+027 REJECT move {"duration":10,"dx":1.0,"dz":0.0,"target":"e3b49b3f-892e-55a6-9727-3dccbbccaf0c"}
+    event 428ad96e-f4c1-5728-979e-2eba4be9a01a | 0 state changes | 59d1f2ed21bd
+    unsatisfied: unsupported_connection: Connection endpoints exceed available reach
+028 REJECT work {"duration":10,"dx":5,"dz":0,"mode":"rotation","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","cf8ecac7-cc6a-521d-a285-39766229d791"]}
+    event 57d54f0c-3d07-523d-bd73-d06bdec214f8 | 0 state changes | 59d1f2ed21bd
+    unsatisfied: unsupported_motion: Movement of loaded supports/containers is not modeled
+029 REJECT work {"duration":10,"dx":1.0,"dz":0.0,"mode":"rotation","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","e3b49b3f-892e-55a6-9727-3dccbbccaf0c"]}
+    event 8c4678ff-5d76-5fef-8f27-3ab1592e4567 | 0 state changes | 59d1f2ed21bd
+    unsatisfied: unsupported_connection: Connection endpoints exceed available reach
+030 REJECT work {"duration":10,"dx":5,"dz":0,"mode":"force","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","cf8ecac7-cc6a-521d-a285-39766229d791"]}
+    event d6ac935f-7a0c-5f12-bd63-e1532a73f208 | 0 state changes | 59d1f2ed21bd
+    unsatisfied: unsupported_motion: Movement of loaded supports/containers is not modeled
+031 ACCEPT work {"duration":10,"dx":1.0,"dz":0.0,"mode":"force","path":["dc252a25-9fbc-5944-97f2-b4f7b7471583","b58a470d-0802-53a5-8ccc-25f2aa19ecf5"]}
+    event 26dcfadd-7955-5d80-9abc-c05017ba8628 | 7 state changes | 1ed2a505daaf
+    satisfied: action_valid: Action preconditions and postconditions hold
+    outcome {"efficiency":0.9,"motion":{"from":[2.0,0.0],"input_J":5.45,"mode":"force","output_J":4.905,"to":[3.0,0.0]},"target":"b58a470d-0802-53a5-8ccc-25f2aa19ecf5"}
+032 REJECT move {"duration":10,"dx":1.0,"dz":0.0,"target":"dc252a25-9fbc-5944-97f2-b4f7b7471583"}
+    event cbcd6aee-aafe-520e-9c40-38101bd7f5f6 | 0 state changes | 1ed2a505daaf
+    unsatisfied: anchored_source: Environmental boundary conditions are anchored
+033 ACCEPT experiment {"experiment":{"constraints":[{"category":"physical","measure":"x","op":">=","subject":"cf8ecac7-cc6a-521d-a285-39766229d791","value":5},{"category":"resource","measure":"effort_spent","op":"<=","subject":"565e1909-b286-5bdb-b04b-4b3f216bd53f","value":100}],"design":null,"question":"Do the observed outcomes meet the task constraints?"}}
+    event 262c7119-1921-5d8a-bd41-42824e4decf7 | 3 state changes | 96ffdd22951c
+    satisfied: action_valid: Action preconditions and postconditions hold
+    unsatisfied: constraint_violation: x: 0 >= 5
+    unsatisfied: constraint_violation: effort_spent: 362.905 <= 100
+    outcome {"created":"94cf448c-0843-5c79-a583-8dda00d37003","passed":false}
+GOAL unsatisfied: x: 0 >= 5
+GOAL unsatisfied: effort_spent: 363.905 <= 100
+SUCCESS=False attempts=34 experiments=1 within_budget=True
+FINAL 96ffdd22951c3ed857c2c0a6104a47fbbda73e805e7866583a14f14054cb2b73

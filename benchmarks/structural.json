@@ -1,0 +1,18 @@
+{
+  "id": "structural",
+  "description": "Support a 100 kg load at least 1 m above ground across a horizontal span of at least 3 m, using the finite supplied stocks.",
+  "seed": 42,
+  "universe": {"gravity": 9.81},
+  "stocks": {"wood": 3, "stone": 1, "iron": 0.5, "steel": 0.5, "copper": 0, "glass": 0, "water": 0, "cloth": 0.5, "rope": 1, "soil": 0},
+  "agent": {"energy": 5000, "power": 200, "max_force": 1500, "known_shaping": ["wood", "stone", "iron", "steel", "cloth", "rope"]},
+  "objects": {
+    "load": {"material": "stone", "mass": 100, "length": 1, "radius": 0.2, "position": [3, 0]}
+  },
+  "goals": [
+    {"category": "physical", "measure": "z", "subject": "load", "op": ">=", "value": 1},
+    {"category": "physical", "measure": "bearing_span", "subject": "load", "op": ">=", "value": 3}
+  ],
+  "allowed_actions": ["observe", "shape", "connect", "move", "work", "experiment", "record_design", "record_idea", "believe"],
+  "max_actions": 40,
+  "max_experiments": 2
+}

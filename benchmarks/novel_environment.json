@@ -1,0 +1,18 @@
+{
+  "id": "novel_environment",
+  "description": "In a universe with gravity 2 m/s², hold a 100 kg load at least 2 m above ground using at most 700 J of human effort.",
+  "seed": 42,
+  "universe": {"gravity": 2},
+  "stocks": {"wood": 4, "stone": 1, "iron": 1, "steel": 1, "copper": 0, "glass": 0, "water": 0, "cloth": 1, "rope": 1, "soil": 0},
+  "agent": {"energy": 5000, "power": 100, "max_force": 250, "known_shaping": ["wood", "stone", "iron", "steel", "cloth", "rope"]},
+  "objects": {
+    "load": {"material": "stone", "mass": 100, "length": 1, "radius": 0.2, "position": [0, 0]}
+  },
+  "goals": [
+    {"category": "physical", "measure": "z", "subject": "load", "op": ">=", "value": 2},
+    {"category": "resource", "measure": "effort_spent", "subject": "agent", "op": "<=", "value": 700}
+  ],
+  "allowed_actions": ["observe", "shape", "connect", "move", "work", "experiment", "record_design", "record_idea", "believe"],
+  "max_actions": 40,
+  "max_experiments": 2
+}

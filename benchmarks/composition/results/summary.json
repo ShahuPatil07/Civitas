@@ -1,0 +1,534 @@
+[
+  {
+    "case": "feasible",
+    "solver": "baseline",
+    "seed": 42,
+    "success": false,
+    "constraints": [
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "z: 0 >= 1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "z",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "environment_work: 0 >= 98.1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 98.1
+          }
+        ]
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 26 <= 100",
+        "evidence": {
+          "actual": 26,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "d4f2855e-1dd7-58c4-a8ad-76a37cd5cfa5",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 33,
+    "experiments": 1,
+    "within_budget": true,
+    "design_versions": 0,
+    "final_hash": "e132af994ce3cbecbc45d55366ae8334abc163b42ef17a6f46c7284218b0e331",
+    "replay_verified": true
+  },
+  {
+    "case": "feasible",
+    "solver": "composition",
+    "seed": 42,
+    "success": true,
+    "constraints": [
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "z: 1 >= 1",
+        "evidence": {
+          "actual": 1.0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "environment_work: 98.1 >= 98.1",
+        "evidence": {
+          "actual": 98.10000000000001,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "a6a6a50c-838c-5b41-9dcd-1beb414df104",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 20 <= 100",
+        "evidence": {
+          "actual": 20,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "d4f2855e-1dd7-58c4-a8ad-76a37cd5cfa5",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 20,
+    "experiments": 4,
+    "within_budget": true,
+    "design_versions": 8,
+    "final_hash": "5aabfd130b8dbbb3610bb1e156ee4b17516a1c0cdeb95bf258424741dcb828fa",
+    "replay_verified": true
+  },
+  {
+    "case": "insufficient_energy",
+    "solver": "baseline",
+    "seed": 42,
+    "success": false,
+    "constraints": [
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "z: 0 >= 1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "z",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "environment_work: 0 >= 98.1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 98.1
+          }
+        ]
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 26 <= 100",
+        "evidence": {
+          "actual": 26,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "db49df3d-ddba-5514-a66c-695253bdeca7",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 33,
+    "experiments": 1,
+    "within_budget": true,
+    "design_versions": 0,
+    "final_hash": "c9865256f442d300219ab6909cffd02bdda83a8fb7eee4393ccc5a907b61c8b2",
+    "replay_verified": true
+  },
+  {
+    "case": "insufficient_energy",
+    "solver": "composition",
+    "seed": 42,
+    "success": false,
+    "constraints": [
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "z: 0 >= 1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "z",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "environment_work: 0 >= 98.1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": ">=",
+            "value": 98.1
+          }
+        ]
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "f4ed1db9-5f6d-580f-90d4-a2328e8689e6",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 24 <= 100",
+        "evidence": {
+          "actual": 24,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "db49df3d-ddba-5514-a66c-695253bdeca7",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 21,
+    "experiments": 4,
+    "within_budget": true,
+    "design_versions": 8,
+    "final_hash": "be324ea9761ec28ca2beed0a14da73e3894a2f464ed9b490e66ddc90eb1a7de7",
+    "replay_verified": true
+  },
+  {
+    "case": "gravity_transfer",
+    "solver": "baseline",
+    "seed": 42,
+    "success": false,
+    "constraints": [
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "z: 0 >= 1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "z",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "status": "unsatisfied",
+        "code": "constraint_violation",
+        "reason": "environment_work: 0 >= 98.1",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": [
+          {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 98.1
+          }
+        ]
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 31 <= 100",
+        "evidence": {
+          "actual": 31,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "ae863424-815d-5c1c-b969-161fb5ef888b",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 33,
+    "experiments": 1,
+    "within_budget": true,
+    "design_versions": 0,
+    "final_hash": "f95ff97a2bd81b5f9792951aa66277699bc237bc74f96d8a2f5064b7b9fac5bb",
+    "replay_verified": true
+  },
+  {
+    "case": "gravity_transfer",
+    "solver": "composition",
+    "seed": 42,
+    "success": true,
+    "constraints": [
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "z: 1 >= 1",
+        "evidence": {
+          "actual": 1.0,
+          "constraint": {
+            "category": "physical",
+            "measure": "z",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 1
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "environment_work: 120 >= 98.1",
+        "evidence": {
+          "actual": 120.0,
+          "constraint": {
+            "category": "physical",
+            "measure": "environment_work",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": ">=",
+            "value": 98.1
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "human_work: 0 <= 0",
+        "evidence": {
+          "actual": 0,
+          "constraint": {
+            "category": "physical",
+            "measure": "human_work",
+            "subject": "cbfe4fe8-2831-5b65-8ae0-fe9f28817db8",
+            "op": "<=",
+            "value": 0
+          }
+        },
+        "blocking_requirements": []
+      },
+      {
+        "status": "satisfied",
+        "code": "constraint_satisfied",
+        "reason": "effort_spent: 21 <= 100",
+        "evidence": {
+          "actual": 21,
+          "constraint": {
+            "category": "resource",
+            "measure": "effort_spent",
+            "subject": "ae863424-815d-5c1c-b969-161fb5ef888b",
+            "op": "<=",
+            "value": 100
+          }
+        },
+        "blocking_requirements": []
+      }
+    ],
+    "attempts": 24,
+    "experiments": 5,
+    "within_budget": true,
+    "design_versions": 10,
+    "final_hash": "a7dc66a5ada3c2078db54d876f8ef6fb3a6ba61a78922b208e240c1acfc1fd58",
+    "replay_verified": true
+  }
+]

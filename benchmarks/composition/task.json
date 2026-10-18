@@ -1,0 +1,22 @@
+{
+  "id": "unnamed_composition",
+  "description": "Raise a 10 kg load by at least 1 m using environmental energy, with zero direct human work on the load and at most 100 J total human effort. Available bodies are unconnected; determine their useful relationships.",
+  "seed": 42,
+  "universe": {"gravity": 9.81},
+  "stocks": {},
+  "agent": {"energy": 100, "power": 100, "max_force": 20, "known_shaping": []},
+  "objects": {
+    "a": {"material": "iron", "mass": 5, "length": 0.5, "radius": 0.5, "position": [0, 0], "source": {"energy": 1000, "power": 500, "max_force": 200}},
+    "b": {"material": "wood", "mass": 2, "length": 3, "radius": 0.5, "position": [0, 0]},
+    "load": {"material": "stone", "mass": 10, "length": 0.25, "radius": 0.5, "position": [2, 0]}
+  },
+  "goals": [
+    {"category": "physical", "measure": "z", "subject": "load", "op": ">=", "value": 1},
+    {"category": "physical", "measure": "environment_work", "subject": "load", "op": ">=", "value": 98.1},
+    {"category": "physical", "measure": "human_work", "subject": "load", "op": "<=", "value": 0},
+    {"category": "resource", "measure": "effort_spent", "subject": "agent", "op": "<=", "value": 100}
+  ],
+  "allowed_actions": ["observe", "connect", "move", "work", "record_design", "experiment"],
+  "max_actions": 120,
+  "max_experiments": 16
+}

@@ -1,0 +1,19 @@
+{
+  "id": "transportation",
+  "description": "Move a 200 kg load across 5 m of uniform frictional terrain while spending at most 100 J of total human effort.",
+  "seed": 42,
+  "universe": {"gravity": 9.81},
+  "stocks": {"wood": 10, "stone": 2, "iron": 3, "steel": 1, "copper": 1, "glass": 1, "water": 5, "cloth": 2, "rope": 3, "soil": 5},
+  "agent": {"energy": 10000, "power": 100, "max_force": 300, "known_shaping": ["wood", "iron", "cloth", "rope"]},
+  "objects": {
+    "boundary": {"material": "iron", "mass": 30, "length": 10, "radius": 0.3, "position": [0, 0], "source": {"energy": 20000, "power": 2000, "max_force": 2000}},
+    "load": {"material": "stone", "mass": 200, "length": 1, "radius": 0.4, "position": [0, 0]}
+  },
+  "goals": [
+    {"category": "physical", "measure": "x", "subject": "load", "op": ">=", "value": 5},
+    {"category": "resource", "measure": "effort_spent", "subject": "agent", "op": "<=", "value": 100}
+  ],
+  "allowed_actions": ["observe", "shape", "connect", "move", "work", "experiment", "record_design", "record_idea", "believe"],
+  "max_actions": 40,
+  "max_experiments": 2
+}

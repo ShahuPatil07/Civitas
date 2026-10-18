@@ -1,0 +1,20 @@
+{
+  "id": "mechanical",
+  "description": "Use environmental energy to raise a 100 kg load from 0 m to 2 m at least twice, with at most 10 J of direct human work on the load.",
+  "seed": 42,
+  "universe": {"gravity": 9.81},
+  "stocks": {"wood": 12, "stone": 4, "iron": 4, "steel": 2, "copper": 2, "glass": 2, "water": 5, "cloth": 2, "rope": 3, "soil": 5},
+  "agent": {"energy": 10000, "power": 100, "max_force": 300, "known_shaping": ["wood", "stone", "iron", "steel", "copper", "glass", "water", "cloth", "rope", "soil"]},
+  "objects": {
+    "boundary": {"material": "iron", "mass": 20, "length": 8, "radius": 0.3, "position": [0, 0], "source": {"energy": 20000, "power": 2000, "max_force": 2000}},
+    "load": {"material": "stone", "mass": 100, "length": 1, "radius": 0.5, "position": [2, 0]}
+  },
+  "goals": [
+    {"category": "physical", "measure": "crossings", "subject": "load", "op": ">=", "value": 2, "parameters": {"lower": 0, "upper": 2}},
+    {"category": "physical", "measure": "environment_work", "subject": "load", "op": ">=", "value": 3924},
+    {"category": "physical", "measure": "human_work", "subject": "load", "op": "<=", "value": 10}
+  ],
+  "allowed_actions": ["observe", "shape", "connect", "move", "work", "experiment", "record_design", "record_idea", "believe"],
+  "max_actions": 40,
+  "max_experiments": 2
+}
