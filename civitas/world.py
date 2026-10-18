@@ -55,6 +55,10 @@ class World:
     def history(self) -> list[dict]:
         return deepcopy(self.__history)
 
+    @property
+    def event_count(self) -> int:
+        return len(self.__history)
+
     def snapshot(self) -> dict:
         return deepcopy(self.__state)
 
@@ -75,6 +79,7 @@ class World:
 
     def engineer_view(self, actor: str) -> dict:
         view = self.view(actor)
+        view["effort_spent"] = self.__state["agents"][actor]["effort_spent"]
         view["projects"] = deepcopy({i: p for i, p in self.__state.get("projects", {}).items() if p["actor"] == actor})
         view["discoveries"] = [deepcopy(k["value"]) for k in view["knowledge"] if k["origin"] == "discovery"]
         view["materials"] = {k["claim"].split(":", 1)[1]: deepcopy(k["value"]) for k in view["knowledge"] if k["origin"] == "material_observation"}
@@ -93,6 +98,8 @@ class World:
             raise ValueError("incompatible rule version")
         if s.get("projects"):
             raise ValueError("genesis must not contain projects; load through replay")
+        if s['rule_version'] == 'civitas-semantic-0.2' and not isinstance(s.get('projects'), dict):
+            raise ValueError('0.2 genesis requires an empty projects mapping')
         UUID(s["world_id"])
         if type(s["seed"]) is not int or s["time"] != 0:
             raise ValueError("genesis requires integer seed and zero time")
@@ -311,6 +318,9 @@ class World:
         elif kind in {"move", "work"}:
             metadata = self._motion(s, actor, kind, args)
             self._observe(s, actor, metadata["target"], event_id)
+            if s['rule_version'] == 'civitas-semantic-0.2' and kind == 'work':
+                for identity in args['path'][:-1]:
+                    self._observe(s, actor, identity, event_id)
         elif kind in {"record_design", "record_idea"}:
             design = kind == "record_design"
             proposal = args["design" if design else "idea"]
@@ -340,6 +350,8 @@ class World:
             self._charge(s, actor, 0, 1)
         elif kind == "experiment":
             experiment = Experiment.from_dict(args["experiment"])
+            if s['rule_version'] == 'civitas-semantic-0.2':
+                self._charge(s, actor, 1, 1)
             if experiment.design:
                 require(experiment.design in s["designs"] and any(k["value"] == experiment.design and k["origin"] == "record" for k in a["knowledge"]),
                         "insufficient_knowledge", "Experiment design must be known")
@@ -353,7 +365,8 @@ class World:
             outcome = all(r["status"] == "satisfied" for r in evaluations)
             s["experiments"][identity] = {"author": actor, "proposal": asdict(experiment), "results": deepcopy(evaluations), "passed": outcome}
             self._claim(s, actor, f"experiment:{identity}", s["experiments"][identity], event_id, "experiment")
-            self._charge(s, actor, 1, 1)
+            if s['rule_version'] != 'civitas-semantic-0.2':
+                self._charge(s, actor, 1, 1)
             metadata = {"created": identity, "passed": outcome}
         return metadata, evaluations
 

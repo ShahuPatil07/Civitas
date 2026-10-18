@@ -102,3 +102,35 @@ Runs contain genesis, full scenario, seed, public task, all actions and events,
 final digest and evaluator outcome. They are researcher artifacts and can contain
 truth unavailable to the actor. Never feed a whole run back into a reasoning
 model; use its restricted observations and submitted-action feedback instead.
+
+## Shared playable laboratory (Milestone 2)
+
+`python -m benchmarks.engineer.run` uses the exact `Laboratory` controller and
+World used by `python -m civitas play`. It runs construction, zero-energy and
+altered-gravity cases, then forks the completed world into matched cold/warm
+transfer runs. Results include primitive attempts, experiments, reasoning
+artifacts, design attempts, failures, effort, simulated time, reported tokens,
+zero API fees and discovery counts. JSON journals and readable traces replay
+without a provider. The independent evaluator measures two crossings, height,
+useful environmental work, zero direct human load work and bounded total effort.
+
+`--provider local --model NAME` can run the same suite through a free installed
+local model. It can be much slower and fail schema validation; record failures
+instead of replacing responses with a successful canned construction. The
+provider sees interpreted goals and observations, not the private evaluator.
+The offline mode and local planner advice are clearly disclosed.
+
+These authored scenarios are **public calibration, not genuinely blind tests**.
+For a blind study, freeze engine/provider code first and have a separate author
+supply unseen numeric task data and controls. Do not tune paths, geometry or
+language handling after reading a holdout and continue calling it hidden.
+Benchmarks must check the requested outcome independently of interpreted goals;
+a model can misunderstand a request and satisfy an easier interpretation.
+
+Laboratory scenario extensions are `rule_version` and five `agent_positions`.
+Project budgets are enforced in the kernel: construction attempts and experiment
+actions count toward actions; experiments also have their own bound; reasoning
+artifacts have a separate bound. Observe/resource inspection at startup and
+project lifecycle actions are outside the primitive budget and still journaled.
+Rejected physical operations consume attempts without losing material/energy.
+Use `metadata.operation_accepted` for nested construction outcomes.

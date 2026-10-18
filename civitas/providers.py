@@ -28,26 +28,27 @@ class ReplayProvider:
         return response
 
 
-SYSTEM = '''You are an experimental Engineer in a deterministic physical sandbox.
-Return exactly one JSON object: {"kind":...,"summary":...,"payload":...}.
-Never report success yourself. The kernel evaluates all experiments. No code execution.
-You see only observations and known records. Give concise conclusions, not hidden reasoning.
-Kinds:
-intent: payload {"goals":[constraint,...]}; only when goals are empty.
-hypothesis, diagnosis, unresolved: payload {"requirements":[string,...]}.
-experiment_proposal: payload {}. This tests frozen project goals.
-action_proposal or plan: payload {"actions":[{"actor":actor_id,"kind":primitive,"args":...}]}.
-candidate_design or design_revision: payload {"design":design}, using the exact schema of the advisory candidate if present.
-Constraints: {"category":"physical"|"resource","measure":string,"subject":observed_id|actor_id,"op":">="|"<="|"==","value":number}.
-Physical measures x,z (metres), environment_work,human_work (joules), mass, length, crossings.
-crossings also needs parameters:{"lower":number,"upper":number}; counts completed upward crossings after return.
-Resource measure energy or effort_spent. Unknown physics must be unresolved, never relabelled as modeled.
-Primitive actions: shape(material,mass,length,radius), connect(a,b,kind:force|rotation|support|contain), work(path,dx,dz,duration,mode:force|rotation), move(target,dx,dz,duration), observe(target), disconnect(relation).
-Materials are property based. There are no named artifact classes. Sources provide finite mechanical energy already; fluid conversion is NOT modeled.
-Default ambiguous displacement is 1 metre and repeated means 2 cycles; clearly state assumptions.
-Preserve human intent: environmental work requires environment_work increase and no added human_work on target.
-An advisory proposal from a bounded planner is provided. You may adopt, revise or decline it. Its feasibility is unproven.
-Return only the proposal object, not usage, project state, or world state.'''
+DECISION_SYSTEM = '''You are an Engineer proposing experiments in a physical sandbox.
+Evaluate the advisory proposal using the goal, observations and failure evidence.
+Return JSON: {"decision":"adopt"|"replace"|"unresolved","summary":"brief public conclusion"}.
+For replace, also include "replacement": a complete proposal with exactly kind,summary,payload,
+following the advisory's schema. For unresolved give the missing physical requirement.
+Adopt proposes the advisory unchanged for independent kernel validation; it does NOT claim success.
+You may change a proposed design or action, but may not change already frozen project goals.
+There are no named artifact recipes or generated code. Known objects expose only generic properties.
+Energy sources are finite mechanical-energy boundaries; fluid harvesting is not simulated.
+All physical outcomes and success are determined by the kernel. Decide only the NEXT proposal,
+not the entire task. For an intent proposal, interpret the requested outcome; do not require
+a solution to exist before recording the goal. An unproven hypothesis is allowed.
+Keep your conclusion concise.'''
+
+DECISION_SCHEMA = {'oneOf': [
+    {'type': 'object', 'properties': {'decision': {'const': decision}, 'summary': {'type': 'string'}},
+     'required': ['decision', 'summary'], 'additionalProperties': False}
+    for decision in ('adopt', 'unresolved')
+] + [{'type': 'object', 'properties': {'decision': {'const': 'replace'}, 'summary': {'type': 'string'},
+                                      'replacement': {'type': 'object'}},
+      'required': ['decision', 'summary', 'replacement'], 'additionalProperties': False}]}
 
 
 class LocalProvider:
@@ -58,10 +59,14 @@ class LocalProvider:
     """
     name = 'local Ollama + advisory bounded planner'
 
-    def __init__(self, model='qwen3-vl:2b', timeout=120):
+    def __init__(self, model='qwen3-vl:2b', timeout=180, local_format='chat'):
         if not isinstance(model, str) or not model or 'cloud' in model.lower() or '/' in model:
             raise ValueError('Only an installed local Ollama model is allowed')
         self.model, self.timeout = model, timeout
+        if local_format not in {'chat', 'chatml'}:
+            raise ValueError('Local prompt format must be chat or chatml')
+        self.local_format = local_format
+        self.name = f'local {model} ({local_format}) + advisory planner'
 
     def _request(self, path, body=None):
         request = Request('http://127.0.0.1:11434/api/' + path,
@@ -80,30 +85,78 @@ class LocalProvider:
         advisory = propose(context)
         # Keep local inference small; no full event journal, truth or chain of thought.
         v, p = deepcopy(context['view']), deepcopy(context['project'])
-        v['knowledge'] = [k for k in v['knowledge'] if k['origin'] not in {'observation', 'record'}][-24:]
+        v['knowledge'] = [k for k in v['knowledge'] if k['origin'] in {'initial', 'discovery'}][-8:]
         v.pop('projects', None)
         v.pop('neighbors', None)
+        v['observations'] = {i: {'object': {k: value for k, value in o['object'].items() if k != 'motions'},
+                                     'properties': o['properties'], 'affordances': [a['name'] for a in o['affordances']]}
+                             for i, o in v['observations'].items()}
+        v['designs'] = {i: d for i, d in v['designs'].items() if i == p['active_design']}
+        v.pop('ideas', None)
         p['artifacts'] = p['artifacts'][-2:]
         p['attempts'] = p['attempts'][-2:]
+        if not p['goals']:
+            # Goal interpretation needs the selected observation, not every
+            # construction affordance and stock property in the laboratory.
+            v = {'id': v['id'], 'target': p['target'], 'observation': v['observations'].get(p['target']), 'energy': v['energy'],
+                 'observed_sources': {i: o['object']['source'] for i, o in v['observations'].items() if 'source' in o['object']}}
+        # Keep the local decision prompt bounded on CPU. The deterministic
+        # policy can inspect the full permitted context; the model gets this
+        # observation-only digest plus the concrete proposal it can replace.
+        if p['goals']:
+            v = {'id': v['id'], 'inventory': v['inventory'], 'materials': v['materials'],
+                 'observations': {i: {'object': o['object'], 'affordances': o['affordances']} for i, o in v['observations'].items()},
+                 'discoveries': v['discoveries'][-2:]}
+        compact = {'goal_text': p['text'], 'frozen_goals': p['goals'], 'observed_world': v,
+                   'latest_failure': next((a for a in reversed(p['attempts']) if not a['accepted']), None),
+                   'advisory_proposal': advisory}
         request = {'model': self.model, 'stream': False, 'think': False, 'format': 'json',
-                   'options': {'temperature': 0, 'num_predict': 4096, 'num_ctx': 16384},
-                   'messages': [{'role': 'system', 'content': SYSTEM},
-                                {'role': 'user', 'content': json.dumps({'project': p, 'observed_world': v, 'advisory_proposal': advisory})}]}
-        response = self._request('chat', request)
-        artifact = validate_proposal(json.loads(response['message']['content']))
+                   'options': {'temperature': 0, 'num_predict': 1536, 'num_ctx': 8192},
+                   'messages': [{'role': 'system', 'content': DECISION_SYSTEM},
+                                {'role': 'user', 'content': json.dumps(compact, separators=(',', ':'))}]}
+        if self.local_format == 'chatml':
+            # Explicit opt-in transport for ChatML-compatible local models.
+            # Closing an empty thinking section requests public output directly;
+            # no private reasoning text is read, synthesized or replayed.
+            content = request['messages'][1]['content'].replace('<', '\\u003c').replace('>', '\\u003e')
+            prompt = '<|im_start|>system\n' + DECISION_SYSTEM + '<|im_end|>\n<|im_start|>user\n' + content + '<|im_end|>\n<|im_start|>assistant\n<think>\n</think>\n'
+            raw = {k: v for k, v in request.items() if k not in {'messages', 'think'}}
+            raw.update(raw=True, prompt=prompt, format=DECISION_SCHEMA)
+            response = self._request('generate', raw)
+            public_text = response.get('response', '')
+        else:
+            response = self._request('chat', request)
+            public_text = response['message']['content']
+        if not public_text.strip():
+            raise ValueError('Local model returned no public JSON within its generation budget; no proposal was applied')
+        output = json.loads(public_text)
+        if isinstance(output, dict) and 'decision' in output:
+            if set(output) - {'decision', 'summary', 'replacement'} or not isinstance(output.get('summary'), str) or not 0 < len(output['summary']) <= 1000:
+                raise ValueError('Invalid local model decision')
+            if output['decision'] == 'adopt' and 'replacement' not in output:
+                output = {'adopt_advisory': True, 'summary': output['summary']}
+            elif output['decision'] == 'unresolved' and 'replacement' not in output:
+                output = {'kind': 'unresolved', 'summary': output['summary'], 'payload': {'requirements': [output['summary']]}}
+            elif output['decision'] == 'replace' and 'replacement' in output:
+                output = output['replacement']
+            else:
+                raise ValueError('Invalid local model decision/replacement combination')
+        if isinstance(output, dict) and set(output) == {'adopt_advisory', 'summary'} and output['adopt_advisory'] is True:
+            if not isinstance(output['summary'], str) or not 0 < len(output['summary']) <= 1000:
+                raise ValueError('Advisory adoption requires a concise model explanation')
+            artifact = deepcopy(advisory)
+            artifact['summary'] += ' Local model: ' + output['summary']
+            artifact = validate_proposal(artifact)
+        else:
+            artifact = validate_proposal(output)
         return {'proposal': artifact, 'usage': {'input_tokens': response.get('prompt_eval_count', 0), 'output_tokens': response.get('eval_count', 0), 'cost': 0}}
 
 
-def provider(name='offline', model='qwen3-vl:2b'):
+def provider(name='offline', model='qwen3-vl:2b', local_format='chatml'):
+    """Engineer reasoning inside projects. Free-text translation is separate:
+    see civitas.llm.backend and Laboratory(translator=...)."""
     if name == 'offline':
         return OfflineProvider()
     if name == 'local':
-        return LocalProvider(model)
-    if name == 'auto':
-        local = LocalProvider(model, timeout=120)
-        try:
-            local.check()
-            return local
-        except (OSError, ValueError):
-            return OfflineProvider()
-    raise ValueError('Provider must be offline, local or auto')
+        return LocalProvider(model, local_format=local_format)
+    raise ValueError('Provider must be offline or local')

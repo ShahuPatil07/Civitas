@@ -1,0 +1,580 @@
+{
+  "feasible": {
+    "actions": 16,
+    "cost": 0,
+    "design_attempts": 5,
+    "design_revisions": 4,
+    "discoveries": 1,
+    "evaluation": {
+      "constraints": [
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 2,
+            "constraint": {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "207ed4d5-9587-54ae-b2e6-cf7451709e86",
+              "value": 2
+            }
+          },
+          "reason": "crossings: 2 >= 2",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "207ed4d5-9587-54ae-b2e6-cf7451709e86",
+              "value": 1
+            }
+          },
+          "reason": "z: 1 >= 1",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1962.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "207ed4d5-9587-54ae-b2e6-cf7451709e86",
+              "value": 1962.0
+            }
+          },
+          "reason": "environment_work: 1962 >= 1962",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "human_work",
+              "op": "<=",
+              "subject": "207ed4d5-9587-54ae-b2e6-cf7451709e86",
+              "value": 0
+            }
+          },
+          "reason": "human_work: 0 <= 0",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 63.0,
+            "constraint": {
+              "category": "resource",
+              "measure": "effort_spent",
+              "op": "<=",
+              "subject": "115dab95-f289-5f05-8729-62a22ae127bf",
+              "value": 150
+            }
+          },
+          "reason": "effort_spent: 63 <= 150",
+          "status": "satisfied"
+        }
+      ],
+      "success": true
+    },
+    "experiments": 5,
+    "failed_actions": 4,
+    "feasibility": "known_feasible",
+    "human_effort_J": 63.0,
+    "input_tokens": 0,
+    "material_consumed_kg": 2,
+    "output_tokens": 0,
+    "reasoning": 12,
+    "replay_verified": true,
+    "reusable_knowledge_created": 1,
+    "reused_knowledge": false,
+    "simulated_seconds": 57.0,
+    "status": "succeeded",
+    "world_hash": "144e81370e648384355c33e3a83a9bef5d736ae4fdbfc5f097ac00fece45065a"
+  },
+  "gravity_3": {
+    "actions": 16,
+    "cost": 0,
+    "design_attempts": 5,
+    "design_revisions": 4,
+    "discoveries": 1,
+    "evaluation": {
+      "constraints": [
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 2,
+            "constraint": {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "1088853c-5de2-5d62-b284-d4112bff89a5",
+              "value": 2
+            }
+          },
+          "reason": "crossings: 2 >= 2",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "1088853c-5de2-5d62-b284-d4112bff89a5",
+              "value": 1
+            }
+          },
+          "reason": "z: 1 >= 1",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 600.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "1088853c-5de2-5d62-b284-d4112bff89a5",
+              "value": 600
+            }
+          },
+          "reason": "environment_work: 600 >= 600",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "human_work",
+              "op": "<=",
+              "subject": "1088853c-5de2-5d62-b284-d4112bff89a5",
+              "value": 0
+            }
+          },
+          "reason": "human_work: 0 <= 0",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 63.0,
+            "constraint": {
+              "category": "resource",
+              "measure": "effort_spent",
+              "op": "<=",
+              "subject": "d50528bd-e1c6-524d-9729-e73eb398a301",
+              "value": 150
+            }
+          },
+          "reason": "effort_spent: 63 <= 150",
+          "status": "satisfied"
+        }
+      ],
+      "success": true
+    },
+    "experiments": 5,
+    "failed_actions": 4,
+    "feasibility": "known_feasible",
+    "human_effort_J": 63.0,
+    "input_tokens": 0,
+    "material_consumed_kg": 2,
+    "output_tokens": 0,
+    "reasoning": 12,
+    "replay_verified": true,
+    "reusable_knowledge_created": 1,
+    "reused_knowledge": false,
+    "simulated_seconds": 57.0,
+    "status": "succeeded",
+    "world_hash": "8768ad93a380c78948636e3f685c4ab3fb3a4563e048e613097d650609549bb8"
+  },
+  "no_energy": {
+    "actions": 3,
+    "cost": 0,
+    "design_attempts": 1,
+    "design_revisions": 0,
+    "discoveries": 0,
+    "evaluation": {
+      "constraints": [
+        {
+          "blocking_requirements": [
+            {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 2
+            }
+          ],
+          "code": "constraint_violation",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 2
+            }
+          },
+          "reason": "crossings: 0 >= 2",
+          "status": "unsatisfied"
+        },
+        {
+          "blocking_requirements": [
+            {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 1
+            }
+          ],
+          "code": "constraint_violation",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 1
+            }
+          },
+          "reason": "z: 0 >= 1",
+          "status": "unsatisfied"
+        },
+        {
+          "blocking_requirements": [
+            {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 1962.0
+            }
+          ],
+          "code": "constraint_violation",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 1962.0
+            }
+          },
+          "reason": "environment_work: 0 >= 1962",
+          "status": "unsatisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "human_work",
+              "op": "<=",
+              "subject": "543becb4-2174-53fd-b5a9-a94c2f75c897",
+              "value": 0
+            }
+          },
+          "reason": "human_work: 0 <= 0",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 41.0,
+            "constraint": {
+              "category": "resource",
+              "measure": "effort_spent",
+              "op": "<=",
+              "subject": "a8f282ed-ef35-5d90-9b7b-1ba372e4d8fa",
+              "value": 150
+            }
+          },
+          "reason": "effort_spent: 41 <= 150",
+          "status": "satisfied"
+        }
+      ],
+      "success": false
+    },
+    "experiments": 1,
+    "failed_actions": 1,
+    "feasibility": "known_infeasible",
+    "human_effort_J": 41.0,
+    "input_tokens": 0,
+    "material_consumed_kg": 2,
+    "output_tokens": 0,
+    "reasoning": 4,
+    "replay_verified": true,
+    "reusable_knowledge_created": 0,
+    "reused_knowledge": false,
+    "simulated_seconds": 8,
+    "status": "unresolved",
+    "world_hash": "d967ea9d0a660a478eaf9c32e1623e4333da59530cfb740453d21c7e2e50ec25"
+  },
+  "transfer_cold": {
+    "actions": 20,
+    "cost": 0,
+    "design_attempts": 8,
+    "design_revisions": 7,
+    "discoveries": 2,
+    "evaluation": {
+      "constraints": [
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 2,
+            "constraint": {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 2
+            }
+          },
+          "reason": "crossings: 2 >= 2",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 1
+            }
+          },
+          "reason": "z: 1 >= 1",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1569.6000000000001,
+            "constraint": {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 1569.6000000000001
+            }
+          },
+          "reason": "environment_work: 1569.6 >= 1569.6",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "human_work",
+              "op": "<=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 0
+            }
+          },
+          "reason": "human_work: 0 <= 0",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 84.0,
+            "constraint": {
+              "category": "resource",
+              "measure": "effort_spent",
+              "op": "<=",
+              "subject": "115dab95-f289-5f05-8729-62a22ae127bf",
+              "value": 250
+            }
+          },
+          "reason": "effort_spent: 84 <= 250",
+          "status": "satisfied"
+        }
+      ],
+      "success": true
+    },
+    "experiments": 8,
+    "failed_actions": 7,
+    "feasibility": "known_feasible",
+    "human_effort_J": 21.0,
+    "input_tokens": 0,
+    "material_consumed_kg": 0,
+    "output_tokens": 0,
+    "reasoning": 17,
+    "replay_verified": true,
+    "reusable_knowledge_created": 1,
+    "reused_knowledge": false,
+    "simulated_seconds": 66.0,
+    "status": "succeeded",
+    "world_hash": "c54bcd5ed83a1bcc1444fcc270bee93b564e49a149da2745331efccda265f2e1"
+  },
+  "transfer_warm": {
+    "actions": 6,
+    "cost": 0,
+    "design_attempts": 1,
+    "design_revisions": 0,
+    "discoveries": 2,
+    "evaluation": {
+      "constraints": [
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 2,
+            "constraint": {
+              "category": "physical",
+              "measure": "crossings",
+              "op": ">=",
+              "parameters": {
+                "lower": 0,
+                "upper": 1
+              },
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 2
+            }
+          },
+          "reason": "crossings: 2 >= 2",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1.0,
+            "constraint": {
+              "category": "physical",
+              "measure": "z",
+              "op": ">=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 1
+            }
+          },
+          "reason": "z: 1 >= 1",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 1569.6000000000001,
+            "constraint": {
+              "category": "physical",
+              "measure": "environment_work",
+              "op": ">=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 1569.6000000000001
+            }
+          },
+          "reason": "environment_work: 1569.6 >= 1569.6",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 0,
+            "constraint": {
+              "category": "physical",
+              "measure": "human_work",
+              "op": "<=",
+              "subject": "8806afc4-3c3d-5aae-a410-bf0dbd6a899f",
+              "value": 0
+            }
+          },
+          "reason": "human_work: 0 <= 0",
+          "status": "satisfied"
+        },
+        {
+          "blocking_requirements": [],
+          "code": "constraint_satisfied",
+          "evidence": {
+            "actual": 77.0,
+            "constraint": {
+              "category": "resource",
+              "measure": "effort_spent",
+              "op": "<=",
+              "subject": "115dab95-f289-5f05-8729-62a22ae127bf",
+              "value": 250
+            }
+          },
+          "reason": "effort_spent: 77 <= 250",
+          "status": "satisfied"
+        }
+      ],
+      "success": true
+    },
+    "experiments": 1,
+    "failed_actions": 0,
+    "feasibility": "known_feasible",
+    "human_effort_J": 14.0,
+    "input_tokens": 0,
+    "material_consumed_kg": 0,
+    "output_tokens": 0,
+    "reasoning": 3,
+    "replay_verified": true,
+    "reusable_knowledge_created": 1,
+    "reused_knowledge": true,
+    "simulated_seconds": 38.0,
+    "status": "succeeded",
+    "world_hash": "da9b87aa75fcb4d008a697d7c14cc1f8fc5646f2c086cd5d57554c593f7c1121"
+  }
+}
