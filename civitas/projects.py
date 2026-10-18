@@ -1,11 +1,69 @@
 """Kernel-owned project transitions; called only from World's staged dispatcher."""
 from copy import deepcopy
 from .cognition import validate_proposal, validate_physical_action
-from .constraints import evaluate, result
+from math import ceil
+from .constraints import evaluate, measure, result
 from .model import canonical, keys, uid
+from .physics import properties
 
 TERMINAL = {"succeeded", "unresolved", "exhausted"}
 PROJECT_RULE_VERSION = "civitas-semantic-0.2"
+
+
+def effort_cap(p, actor):
+    """Tightest effort ceiling the project committed to, or None."""
+    caps = [c["value"] for c in p["goals"] if c["category"] == "resource" and c["measure"] == "effort_spent"
+            and c["subject"] == actor and c["op"] in {"<=", "=="}]
+    return min(caps) if caps else None
+
+
+def minimum_work(s, p):
+    """Conservation lower bound (J) on work still needed by positional goals.
+
+    Lowering is free and paths are straight, so the true requirement is never
+    smaller. Returns {subject: joules} for goals the bound understands.
+    """
+    g, bounds = s["universe"]["gravity"], {}
+    for subject in sorted({c["subject"] for c in p["goals"] if c["category"] == "physical" and c["subject"] in s["objects"]}):
+        obj = s["objects"][subject]
+        mine = [c for c in p["goals"] if c["subject"] == subject and c["category"] == "physical"]
+        x, z = obj["position"]
+        rise, top = 0, z
+        cross = next((c for c in mine if c["measure"] == "crossings" and c["op"] in {">=", "=="}), None)
+        if cross:
+            lower, upper = cross["parameters"]["lower"], cross["parameters"]["upper"]
+            remaining = max(0, ceil(cross["value"] - measure(s, cross)))
+            if remaining:
+                rise += max(0, upper - max(z, lower)) + (remaining - 1) * (upper - lower)
+                top = upper
+        dx = 0
+        for c in mine:
+            if c["measure"] == "z" and c["op"] in {">=", "=="}:
+                rise += max(0, c["value"] - top)
+            if c["measure"] == "x" and c["op"] in {"==", ">=", "<="}:
+                gap = c["value"] - x
+                dx = max(dx, abs(gap) if c["op"] == "==" else max(0, gap) if c["op"] == ">=" else max(0, -gap))
+        work = obj["mass"] * g * rise + properties(obj, s["materials"])["friction"] * obj["mass"] * g * dx
+        if work > 0:
+            bounds[subject] = work
+    return bounds
+
+
+def energy_certificate(s, p, actor):
+    """Kernel proof that the permitted energy channels cannot do the work."""
+    a = s["agents"][actor]
+    cap = effort_cap(p, actor)
+    for subject, required in minimum_work(s, p).items():
+        obj = s["objects"][subject]
+        mine = [c for c in p["goals"] if c["subject"] == subject and c["op"] == "<="]
+        human = not any(c["measure"] == "human_work" and c["value"] <= obj["human_work"] for c in mine)
+        environment = not any(c["measure"] == "environment_work" and c["value"] <= obj["environment_work"] for c in mine)
+        human_J = min(a["energy"], cap - a["effort_spent"]) if cap is not None else a["energy"]
+        available = (sum(o.get("source", {}).get("energy", 0) for o in s["objects"].values()) if environment else 0) + (max(0, human_J) if human else 0)
+        if available < required:
+            return {"code": "energy_upper_bound", "available_J": available, "required_J": required, "subject": subject,
+                    "basis": "Minimum mechanical work for the remaining displacement exceeds all energy in the permitted channels."}
+    return None
 
 
 def dispatch(kernel, s, data, event_id):
@@ -89,6 +147,10 @@ def dispatch(kernel, s, data, event_id):
         try:
             meta, checks = kernel._dispatch(trial, operation, event_id)
             kernel._physical_invariants(trial)
+            cap = effort_cap(p, actor)
+            spent = trial["agents"][actor]["effort_spent"]
+            require(cap is None or spent <= cap, "effort_limit", "Operation would exceed the project's effort limit",
+                    {"limit_J": cap, "would_spend_J": spent - p["initial_effort"], "cap_total_J": cap})
             canonical(trial)
             s.clear()
             s.update(trial)
@@ -98,7 +160,7 @@ def dispatch(kernel, s, data, event_id):
             meta, checks, accepted = {}, [error.evaluation], False
         except (ValueError, TypeError, KeyError, OverflowError) as error:
             meta, checks, accepted = {}, [result("unsatisfied", "invalid_schema", str(error))], False
-        entry = {"action": operation, "accepted": accepted, "evaluations": checks, "metadata": meta, "event": event_id}
+        entry = {"action": operation, "accepted": accepted, "evaluations": deepcopy(checks), "metadata": meta, "event": event_id}
         p["attempts"].append(entry)
         p["latest"] = entry
         if not accepted:
@@ -109,6 +171,9 @@ def dispatch(kernel, s, data, event_id):
     require(p["counts"]["experiments"] < p["budgets"]["experiments"], "budget_exhausted", "Experiment budget exhausted")
     meta, _ = kernel._dispatch(s, {"actor": actor, "kind": "experiment", "args": {"experiment": {
         "question": p["text"], "constraints": p["goals"], "design": p["active_design"]}}}, event_id)
+    cap = effort_cap(p, actor)
+    require(cap is None or s["agents"][actor]["effort_spent"] <= cap, "effort_limit",
+            "Measurement would exceed the project's effort limit", {"cap_total_J": cap})
     p["counts"]["experiments"] += 1
     p["experiments"].append(meta["created"])
     p["pending_experiment"] = False
@@ -126,6 +191,10 @@ def dispatch(kernel, s, data, event_id):
             "scope": "Measured in this world; reuse requires another experiment."}
         kernel._claim(s, actor, f"discovery:{p['id']}", discovery, event_id, "discovery")
     elif not passed and set(s["objects"]) <= s["agents"][actor]["observations"].keys():
+        certificate = energy_certificate(s, p, actor)
+        if certificate:
+            p["feasibility"], p["status"] = "known_infeasible", "unresolved"
+            p["latest"]["certificate"] = certificate
         for c in p["goals"]:
             if c["category"] == "physical" and c["measure"] == "environment_work" and c["op"] == ">=":
                 bound = s["objects"][c["subject"]]["environment_work"] + sum(o.get("source", {}).get("energy", 0) for o in s["objects"].values())

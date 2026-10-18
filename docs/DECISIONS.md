@@ -1,5 +1,9 @@
 # Decisions and trade-offs
 
+The numbered foundation decisions below describe 0.1. The Milestone 2 addendum
+at the end supersedes deferred scheduling, client and project capabilities for
+new 0.2 laboratory worlds; old 0.1 run semantics remain reproducible.
+
 Read [AIM.md](../AIM.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for the governing
 principles. These are v0 choices, not permanent commitments.
 
@@ -166,3 +170,103 @@ ID bindings and measured design revisions. It keeps the kernel frozen and adds
 an energy-limited control plus gravity transfer. It is public calibration, not a
 genuine held-out study or geometry/manufacturing search. See
 [COMPOSITION_EXPERIMENT.md](COMPOSITION_EXPERIMENT.md) for results and restrictions.
+
+## Milestone 2 addendum
+
+21. **Kernel-owned projects.** Intent, structured artifacts, queues, finite
+    budgets, failed attempts and results are explicit action/event transitions.
+    A nested physical operation can fail while the wrapper successfully records
+    the failure and spends an attempt. Neither providers nor the client can
+    patch project status, physics or knowledge. Unknown measurements fail goals.
+22. **Versioned additive rules.** Laboratory worlds use semantic 0.2; foundation
+    benchmarks retain 0.1 hashes. In 0.2, experiment results include measurement
+    cost, and work refreshes the actor's observations of the whole participating
+    path. Added resource inspection and generic disconnection are kernel actions;
+    removing an indispensable support is rejected atomically. Disconnection costs
+    2 J/1 s and does not recover stock. No new artifact-specific physical rule.
+23. **Free local inference only.** The user's no-payment constraint supersedes
+    the milestone's paid-provider examples. The runtime supports installed local
+    Ollama models on loopback, offline search and response replay. Cloud models
+    are rejected; no API keys, automatic download or paid-provider SDK exists.
+    Local reasoning receives bounded-planner advice. Adopting that advice is an
+    explicit model output, not an invisible fallback. Invalid outputs stop the
+    project honestly. This assisted policy is not evidence of unaided invention.
+    Explicit ChatML raw transport is available for compatible models when native
+    template/thinking behavior prevents public JSON output; other models can use
+    native chat transport. It changes prompt formatting, never world semantics.
+24. **Restricted language and search.** Offline interpretation handles selected
+    objects, positive numeric lift/translation and at most eight repeated lifts.
+    Defaults are shown. It searches paths of two or three observed bodies, two
+    transmission modes and one optional support; shapes one candidate stock body
+    with geometry derived from the target separation. Material selection uses
+    strength/cost properties. Candidate paths are tested online, failed connections
+    prune later proposals, and no world clone provides feasibility to the policy.
+25. **Scoped discovery and transfer.** A passed project experiment records its
+    design, evidence, measured path/mode and gravity. This is a measured-instance
+    principle, not an abstract law inferred by a model. Reuse substitutes another
+    observed endpoint and requires new validation. Warm/cold transfer starts from
+    identical completed-world checkpoints, retaining physical construction in
+    both; the cold provider cannot see previous designs/discoveries/experiments.
+    Construction facts remain observable in both, so cold is not a blank mind.
+26. **Playable client.** Optional Pygame draws generic bodies and relation graphs.
+    Four agents are passive; the Engineer acts within the existing interaction
+    radius. No gathering, agent travel, collision, fluid or autonomous cycling is
+    disguised by animation. Shape/connect/work are visible, separately timed
+    steps. Action commits are discrete, with dispatch paced by simulation-time
+    costs and speed controls; model wall time is separate.
+27. **Bounded asynchronous reasoning.** One worker processes copied context; the
+    UI thread alone commits proposals. Pausing delays response application. Stop
+    discards pending responses. An active HTTP request cannot be forcibly killed
+    by Python's thread API; it has a finite timeout. Local providers report token
+    counts when available, but no compute-energy or electricity-cost estimate.
+28. **Measurement caveats.** Goals are conjunctions over known persistent IDs,
+    with cumulative work/crossing totals. A project can satisfy an imperfect
+    interpretation; benchmark evaluation independently uses the requested numeric
+    outcome. It does not yet causally isolate a design from earlier activity.
+    The conservation certificate is deliberately narrow: if all objects have
+    been observed and total remaining source energy cannot reach the required
+    environmental work, the task is known infeasible under this closed kernel.
+    Otherwise a search failure is unknown/currently unrealizable, not impossible.
+
+Remaining physical shortcuts 6–12 above still apply. In particular, repeated
+`work` actions are externally scheduled controls, not an invented autonomous
+machine. No hidden target class, recipe, alias or named-invention prompt is used.
+
+Next review should select a small independent holdout and compare local model
+outputs with and without planner advice, including invalid output rate and goal
+interpretation fidelity. General geometry/contact and energy harvesting remain
+separate physics research questions; do not solve them with a target-specific
+object class.
+
+## 2026-10-19 — Task understanding: honest outcomes and enforced commitments
+
+- **Effort limits are kernel preconditions.** A project goal `effort_spent <= cap`
+  rejects any step or measurement that would exceed it (`effort_limit`), leaving
+  state unchanged. A final failed check is not evidence the limit was respected.
+- **Energy impossibility is a conservation bound.** After a failed experiment the
+  kernel compares the minimum work for the remaining displacement/repetitions
+  (lowering free, straight paths) with all energy in the permitted channels.
+  Only then is `known_infeasible` reported; planner exhaustion stays `not_found`.
+- **Tiered language.** Grammar first; the local model only for grammar gaps,
+  returning the outcome IR, checked against the literal request, ≤2 repairs.
+  Model refusals are labelled as its judgement, not world facts.
+- Foundation (0.1) replay hashes are unaffected; the 0.2 project protocol had
+  no released saves, so it was changed in place rather than versioned.
+
+## 2026-10-19 — Free cloud language backends; models translate, the grammar compiles
+
+- **Free cloud inference is allowed; paid inference is not.** The user lifted
+  the local-only rule. Presets cover verified/reported free tiers (keyless
+  OVHcloud, Groq, Gemini, OpenRouter `:free` only, Cerebras, Ollama Cloud).
+  Keys come from environment variables and are never stored in worlds.
+- **The model's output language is the grammar.** Instead of emitting goals, a
+  model returns outcome steps that are rendered as canonical grammar sentences
+  and must round-trip through `parse_offline`. One deterministic compiler, a
+  human-readable plan, and no new trust in model output.
+- **Literal guards over model trust.** Stated distances, direction words,
+  destination cues and restriction cues (energy, effort, repetition) must agree
+  with the request; disagreements become bounded repair prompts.
+- **Multi-step requests are Ideas.** The plan is a kernel Idea (`civitas-task-1`)
+  and each step a normal project; the agenda is rebuilt from the journal on
+  load, and stops at the first failed step instead of skipping it.
+- The per-project `InterpreterProvider` was removed in favour of this path.
